@@ -1,24 +1,19 @@
-import fs from "node:fs";
-import path from "node:path";
 import { SkillFlow } from "../game/SkillFlow";
+import type { WorkspaceStatus } from "../../lib/sknk/workspace-status";
 
-export function GameAppShell() {
-  const rootDir = process.cwd();
-  const contractsConfig = path.join(rootDir, "apps", "contracts", "foundry.toml");
-  const requiredSkills = [
-    ".agents/skills/sknk-game-specification/SKILL.md",
-    ".agents/skills/sknk-contract-creation/SKILL.md",
-    ".agents/skills/sknk-frontend-builder/SKILL.md",
-  ];
-  const hasSkills = requiredSkills.every((relativePath) => fs.existsSync(path.join(rootDir, relativePath)));
-  const hasContracts = fs.existsSync(contractsConfig);
+type GameAppShellProps = {
+  status: WorkspaceStatus;
+};
+
+export function GameAppShell({ status }: GameAppShellProps) {
+  const { hasSkills, hasContracts, hasContractDependencies } = status;
 
   return (
     <main className="workspace">
       <div className="workspace__frame">
         <header className="toolbar">
           <div>
-            <h1>Starter workspace</h1>
+            <h1>SKNK Starter Kit</h1>
             <p>Use this page to complete the bootstrap before you ask the skills to build the game.</p>
           </div>
           <div className="toolbar__meta">apps/web</div>
@@ -76,6 +71,19 @@ export function GameAppShell() {
                     <p><code>apps/contracts</code> contains the initialized Foundry workspace.</p>
                   ) : (
                     <p>Run <code>yarn init:contracts</code> so <code>apps/contracts</code> is populated with the template contract repo.</p>
+                  )}
+                </div>
+              </li>
+              <li>
+                <span className="checklist__marker" aria-hidden="true">
+                  {hasContractDependencies ? "Yes" : "No"}
+                </span>
+                <div>
+                  <div className="checklist__title">Contract dependencies installed</div>
+                  {hasContractDependencies ? (
+                    <p><code>apps/contracts/dependencies</code> has been initialized.</p>
+                  ) : (
+                    <p>Run <code>yarn contracts:install</code> so Foundry dependencies are available in <code>apps/contracts/dependencies</code>.</p>
                   )}
                 </div>
               </li>
