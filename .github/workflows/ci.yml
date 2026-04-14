@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - name: Bootstrap contracts
+        run: yarn init:contracts
+      - name: Soldeer install
+        run: yarn contracts:install
+      - name: Forge fmt check
+        run: yarn contracts:fmt
+      - name: Forge test
+        run: yarn contracts:test
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Web checks
+        run: yarn check:web
+      - name: Web build
+        run: yarn build:web

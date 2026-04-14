@@ -1,0 +1,14 @@
+{
+  "repoUrl": "https://github.com/sknk-io/sknk-foundry-example.git",
+  "ref": "c9800875f60d23969c7878e4362ffa4d25e6ddfe",
+  "stripPaths": [
+    ".git",
+    ".github",
+    "LICENSE"
+  ],
+  "placeholderFiles": [
+    "README.md",
+    "AGENTS.md",
+    "frontend-handoff/README.md"
+  ]
+}
