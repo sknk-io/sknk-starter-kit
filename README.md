@@ -96,6 +96,14 @@ The downstream skills rely on these repo paths:
 
 `sknk-contract-creation` is expected to refresh `game-overview.md` and emit machine-readable handoff JSON after contract validation succeeds.
 
+### Optional companion skills
+
+The `sknk-frontend-creation` skill uses PixiJS for scene-first game visuals. For stronger Pixi-specific implementation guidance, also install the official PixiJS skills:
+
+```bash
+npx skills add https://github.com/pixijs/pixijs-skills
+```
+
 ## Notes
 
 - `builder-skills` is intentionally not vendored into this repo.
