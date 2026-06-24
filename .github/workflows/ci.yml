@@ -21,6 +21,8 @@ jobs:
         run: yarn init:contracts
       - name: Soldeer install
         run: yarn contracts:install
+      - name: Warm Foundry compiler cache
+        run: node ./scripts/with-contracts.mjs -- forge build
       - name: Forge fmt check
         run: yarn contracts:fmt
       - name: Forge test
