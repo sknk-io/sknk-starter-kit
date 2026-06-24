@@ -20,7 +20,7 @@ The actual game creation workflow is driven by the external `builder-skills` pac
 
 ## Workflow
 
-Install the SKNK builder skills into your Codex environment:
+Install the SKNK builder skills into your agent environment:
 
 ```sh
 npx skills add sknk-io/builder-skills
