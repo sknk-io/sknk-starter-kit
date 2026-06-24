@@ -1,3 +1,12 @@
+<p align="center">
+  <img
+    src="https://github.com/user-attachments/assets/5e020b3c-6d4e-4a1c-a15d-1d627afcdb0f"
+    alt="sknk-logo"
+    width="200"
+  />
+</p>
+<br />
+
 # SKNK Starter Kit
 
 `sknk-starter-kit` is a skills-first monorepo for building games on SKNK.

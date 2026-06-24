@@ -55,6 +55,8 @@ try {
   preservePlaceholderFiles(targetDir, placeholderDir);
   fs.cpSync(placeholderDir, stagedDir, { recursive: true, force: true });
 
+  validateStagedContracts(stagedDir);
+
   if (fs.existsSync(targetDir)) {
     fs.rmSync(targetDir, { recursive: true, force: true });
   }
@@ -103,6 +105,30 @@ function preservePlaceholderFiles(sourceDir, destinationDir) {
     const destinationPath = path.join(destinationDir, relativePath);
     fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
     fs.copyFileSync(sourcePath, destinationPath);
+  }
+}
+
+function validateStagedContracts(dirPath) {
+  const requiredFiles = ["foundry.toml"];
+  const requiredDirs = ["src", "test"];
+  const missing = [];
+
+  for (const relativePath of requiredFiles) {
+    const fullPath = path.join(dirPath, relativePath);
+    if (!fs.existsSync(fullPath) || !fs.statSync(fullPath).isFile()) {
+      missing.push(relativePath);
+    }
+  }
+
+  for (const relativePath of requiredDirs) {
+    const fullPath = path.join(dirPath, relativePath);
+    if (!fs.existsSync(fullPath) || !fs.statSync(fullPath).isDirectory()) {
+      missing.push(`${relativePath}/`);
+    }
+  }
+
+  if (missing.length > 0) {
+    throw new Error(`Bootstrapped contracts workspace is incomplete. Missing: ${missing.join(", ")}`);
   }
 }
 
