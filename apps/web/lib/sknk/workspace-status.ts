@@ -11,9 +11,12 @@ export type WorkspaceStatus = {
 };
 
 const REQUIRED_SKILLS = [
-  ".agents/skills/sknk-game-specification/SKILL.md",
-  ".agents/skills/sknk-contract-creation/SKILL.md",
-  ".agents/skills/sknk-frontend-builder/SKILL.md",
+  [".agents/skills/sknk-game-specification/SKILL.md"],
+  [".agents/skills/sknk-contract-creation/SKILL.md"],
+  [
+    ".agents/skills/sknk-frontend-creation/SKILL.md",
+    ".agents/skills/sknk-frontend-creation/SKILL.md",
+  ],
 ];
 
 export const getWorkspaceStatus = cache((): WorkspaceStatus => {
@@ -22,8 +25,8 @@ export const getWorkspaceStatus = cache((): WorkspaceStatus => {
   const contractsConfig = path.join(contractsDir, "foundry.toml");
   const contractsDependencies = path.join(contractsDir, "dependencies");
 
-  const hasSkills = REQUIRED_SKILLS.every((relativePath) =>
-    fs.existsSync(path.join(rootDir, relativePath)),
+  const hasSkills = REQUIRED_SKILLS.every((acceptedPaths) =>
+    acceptedPaths.some((relativePath) => fs.existsSync(path.join(rootDir, relativePath))),
   );
   const hasContracts = fs.existsSync(contractsConfig);
   const hasContractDependencies =

@@ -30,13 +30,13 @@ Then drive development in this order:
 
 1. `sknk-game-specification`
 2. `sknk-contract-creation`
-3. `sknk-frontend-builder`
+3. `sknk-frontend-creation`
 
 That split is intentional:
 
 - `sknk-game-specification` shapes the concept and checks SKNK fit
 - `sknk-contract-creation` updates `apps/contracts` and emits handoff artifacts
-- `sknk-frontend-builder` refines `apps/web` from those contract outputs
+- `sknk-frontend-creation` refines `apps/web` from those contract outputs
 
 ## Repo Layout
 
@@ -91,7 +91,7 @@ Use the starter repo as the target workspace and let the installed skills evolve
 
 1. shape the game with `sknk-game-specification`
 2. implement or reshape the contract in `apps/contracts` with `sknk-contract-creation`
-3. refine the frontend in `apps/web` with `sknk-frontend-builder`
+3. refine the frontend in `apps/web` with `sknk-frontend-creation`
 
 After bootstrapping, `apps/contracts` is a normal local workspace. Commit it in your own project once it has been initialized and modified.
 

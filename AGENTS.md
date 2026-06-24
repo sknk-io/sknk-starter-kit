@@ -14,7 +14,7 @@ The expected stage order is:
 
 1. `sknk-game-specification`
 2. `sknk-contract-creation`
-3. `sknk-frontend-builder`
+3. `sknk-frontend-creation`
 
 Do not treat this repo as a framework that decides the final game for the user. The repo provides shape and bootstrap logic; the skills own the development flow.
 
@@ -30,7 +30,7 @@ game-overview.md
 ## Responsibilities
 
 - `apps/contracts` is the contracts target path. It becomes the real workspace after bootstrap.
-- `apps/web` is the workspace that `sknk-frontend-builder` should inspect and refine.
+- `apps/web` is the workspace that `sknk-frontend-creation` should inspect and refine.
 - `game-overview.md` is the repo-root handoff document emitted by contract work.
 - `apps/contracts/frontend-handoff/` is reserved for machine-readable frontend bridge files.
 
@@ -47,5 +47,5 @@ game-overview.md
 
 - Route product shaping to `sknk-game-specification`.
 - Route contract implementation to `sknk-contract-creation`.
-- Route frontend implementation to `sknk-frontend-builder`.
+- Route frontend implementation to `sknk-frontend-creation`.
 - Avoid adding repo-owned behavior that conflicts with those skill boundaries.

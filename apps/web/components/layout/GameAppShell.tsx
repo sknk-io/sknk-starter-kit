@@ -1,4 +1,7 @@
+import Image from "next/image";
+
 import { SkillFlow } from "../game/SkillFlow";
+import { CopyCommandButton } from "./CopyCommandButton";
 import type { WorkspaceStatus } from "../../lib/sknk/workspace-status";
 
 type GameAppShellProps = {
@@ -12,32 +15,37 @@ export function GameAppShell({ status }: GameAppShellProps) {
     <main className="workspace">
       <div className="workspace__frame">
         <header className="toolbar">
-          <div>
-            <h1>SKNK Starter Kit</h1>
-            <p>Use this page to complete the bootstrap before you ask the skills to build the game.</p>
+          <div className="toolbar__brand">
+            <Image className="toolbar__logo" src="/controller.webp" alt="SKNK controller" width={800} height={515} priority />
+            <div>
+              <h1>SKNK Starter Kit</h1>
+              <p>Finalise setup before you get started creating your game.</p>
+            </div>
           </div>
-          <div className="toolbar__meta">apps/web</div>
         </header>
 
         <section className="section">
           <h2>Start</h2>
-          <p>Complete these steps in order. Once the skills are installed and the contracts workspace is initialized, the repo is ready for the normal SKNK workflow.</p>
           <div className="command-list">
             <div className="command-list__row">
               <div className="command-list__label">Install skills</div>
               <code>npx skills add sknk-io/builder-skills</code>
+              <CopyCommandButton command="npx skills add sknk-io/builder-skills" />
             </div>
             <div className="command-list__row">
               <div className="command-list__label">Initialize contracts</div>
               <code>yarn init:contracts</code>
+              <CopyCommandButton command="yarn init:contracts" />
             </div>
             <div className="command-list__row">
               <div className="command-list__label">Install contract deps</div>
               <code>yarn contracts:install</code>
+              <CopyCommandButton command="yarn contracts:install" />
             </div>
             <div className="command-list__row">
               <div className="command-list__label">Run verification</div>
               <code>yarn verify</code>
+              <CopyCommandButton command="yarn verify" />
             </div>
           </div>
         </section>
@@ -49,7 +57,7 @@ export function GameAppShell({ status }: GameAppShellProps) {
             <h2>Checklist</h2>
             <ul className="checklist">
               <li>
-                <span className="checklist__marker" aria-hidden="true">
+                <span className={`checklist__marker ${hasSkills ? "checklist__marker--ready" : "checklist__marker--pending"}`} aria-hidden="true">
                   {hasSkills ? "Yes" : "No"}
                 </span>
                 <div>
@@ -62,7 +70,7 @@ export function GameAppShell({ status }: GameAppShellProps) {
                 </div>
               </li>
               <li>
-                <span className="checklist__marker" aria-hidden="true">
+                <span className={`checklist__marker ${hasContracts ? "checklist__marker--ready" : "checklist__marker--pending"}`} aria-hidden="true">
                   {hasContracts ? "Yes" : "No"}
                 </span>
                 <div>
@@ -75,7 +83,7 @@ export function GameAppShell({ status }: GameAppShellProps) {
                 </div>
               </li>
               <li>
-                <span className="checklist__marker" aria-hidden="true">
+                <span className={`checklist__marker ${hasContractDependencies ? "checklist__marker--ready" : "checklist__marker--pending"}`} aria-hidden="true">
                   {hasContractDependencies ? "Yes" : "No"}
                 </span>
                 <div>
