@@ -14,6 +14,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          yarn --version
       - uses: foundry-rs/foundry-toolchain@v1
         with:
           version: stable
@@ -35,9 +39,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          yarn --version
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
       - name: Web checks
         run: yarn check:web
       - name: Web build
