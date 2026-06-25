@@ -122,6 +122,12 @@ The downstream skills rely on these repo paths:
 
 `sknk-contract-creation` is expected to refresh `game-overview.md` and emit machine-readable handoff JSON after contract validation succeeds.
 
+### Testnet deployment
+
+When deploying contracts on testnet for further development, consult
+[docs.sknk.io](https://docs.sknk.io/) for the current deployed addresses,
+supported tokens and available pairs.
+
 ### Optional companion skills
 
 The `sknk-frontend-creation` skill uses PixiJS for scene-first game visuals. For stronger Pixi-specific implementation guidance, also install the official PixiJS skills:
