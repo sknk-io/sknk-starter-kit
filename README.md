@@ -93,6 +93,23 @@ Use the starter repo as the target workspace and let the installed skills evolve
 2. implement or reshape the contract in `apps/contracts` with `sknk-contract-creation`
 3. refine the frontend in `apps/web` with `sknk-frontend-creation`
 
+Example prompts:
+
+```text
+Use sknk-game-specification to turn this idea into a SKNK-buildable game brief:
+<describe the game loop, win condition, player actions, and any randomness or session flow>
+```
+
+```text
+Use sknk-contract-creation to implement the reviewed game brief in apps/contracts.
+Preserve the starter-kit paths and refresh game-overview.md plus the frontend handoff files.
+```
+
+```text
+Use sknk-frontend-creation to build the apps/web experience from game-overview.md,
+apps/contracts/frontend-handoff/, and the latest apps/contracts/out artifacts.
+```
+
 After bootstrapping, `apps/contracts` is a normal local workspace. Commit it in your own project once it has been initialized and modified.
 
 ## Contract-to-Frontend Handoff
