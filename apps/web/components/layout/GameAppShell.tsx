@@ -1,0 +1,104 @@
+import Image from "next/image";
+
+import { SkillFlow } from "../game/SkillFlow";
+import { CopyCommandButton } from "./CopyCommandButton";
+import type { WorkspaceStatus } from "../../lib/sknk/workspace-status";
+
+type GameAppShellProps = {
+  status: WorkspaceStatus;
+};
+
+export function GameAppShell({ status }: GameAppShellProps) {
+  const { hasSkills, hasContracts, hasContractDependencies } = status;
+
+  return (
+    <main className="workspace">
+      <div className="workspace__frame">
+        <header className="toolbar">
+          <div className="toolbar__brand">
+            <Image className="toolbar__logo" src="/controller.webp" alt="SKNK controller" width={800} height={515} priority />
+            <div>
+              <h1>SKNK Starter Kit</h1>
+              <p>Finalise setup before you get started creating your game.</p>
+            </div>
+          </div>
+        </header>
+
+        <section className="section">
+          <h2>Start</h2>
+          <div className="command-list">
+            <div className="command-list__row">
+              <div className="command-list__label">Install skills</div>
+              <code>npx skills add sknk-io/builder-skills</code>
+              <CopyCommandButton command="npx skills add sknk-io/builder-skills" />
+            </div>
+            <div className="command-list__row">
+              <div className="command-list__label">Initialize contracts</div>
+              <code>yarn init:contracts</code>
+              <CopyCommandButton command="yarn init:contracts" />
+            </div>
+            <div className="command-list__row">
+              <div className="command-list__label">Install contract deps</div>
+              <code>yarn contracts:install</code>
+              <CopyCommandButton command="yarn contracts:install" />
+            </div>
+            <div className="command-list__row">
+              <div className="command-list__label">Run verification</div>
+              <code>yarn verify</code>
+              <CopyCommandButton command="yarn verify" />
+            </div>
+          </div>
+        </section>
+
+        <section className="section-grid">
+          <SkillFlow />
+
+          <section className="section">
+            <h2>Checklist</h2>
+            <ul className="checklist">
+              <li>
+                <span className={`checklist__marker ${hasSkills ? "checklist__marker--ready" : "checklist__marker--pending"}`} aria-hidden="true">
+                  {hasSkills ? "Yes" : "No"}
+                </span>
+                <div>
+                  <div className="checklist__title">Skills installed at project level</div>
+                  {hasSkills ? (
+                    <p>All three SKNK builder skills are available under <code>.agents/skills</code>.</p>
+                  ) : (
+                    <p>Run <code>npx skills add sknk-io/builder-skills</code> so the three SKNK skills are available in <code>.agents</code>.</p>
+                  )}
+                </div>
+              </li>
+              <li>
+                <span className={`checklist__marker ${hasContracts ? "checklist__marker--ready" : "checklist__marker--pending"}`} aria-hidden="true">
+                  {hasContracts ? "Yes" : "No"}
+                </span>
+                <div>
+                  <div className="checklist__title">Contracts workspace initialized</div>
+                  {hasContracts ? (
+                    <p><code>apps/contracts</code> contains the initialized Foundry workspace.</p>
+                  ) : (
+                    <p>Run <code>yarn init:contracts</code> so <code>apps/contracts</code> is populated with the template contract repo.</p>
+                  )}
+                </div>
+              </li>
+              <li>
+                <span className={`checklist__marker ${hasContractDependencies ? "checklist__marker--ready" : "checklist__marker--pending"}`} aria-hidden="true">
+                  {hasContractDependencies ? "Yes" : "No"}
+                </span>
+                <div>
+                  <div className="checklist__title">Contract dependencies installed</div>
+                  {hasContractDependencies ? (
+                    <p><code>apps/contracts/dependencies</code> has been initialized.</p>
+                  ) : (
+                    <p>Run <code>yarn contracts:install</code> so Foundry dependencies are available in <code>apps/contracts/dependencies</code>.</p>
+                  )}
+                </div>
+              </li>
+            </ul>
+          </section>
+        </section>
+      </div>
+    </main>
+  );
+}

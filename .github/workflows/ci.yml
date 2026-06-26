@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          yarn --version
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - name: Bootstrap contracts
+        run: yarn init:contracts
+      - name: Soldeer install
+        run: yarn contracts:install
+      - name: Warm Foundry compiler cache
+        run: node ./scripts/with-contracts.mjs -- forge build
+      - name: Forge fmt check
+        run: yarn contracts:fmt
+      - name: Forge test
+        run: yarn contracts:test
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          yarn --version
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Web checks
+        run: yarn check:web
+      - name: Web build
+        run: yarn build:web

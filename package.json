@@ -1,0 +1,18 @@
+{
+  "name": "sknk-starter-kit",
+  "private": true,
+  "packageManager": "yarn@4.10.2",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "init:contracts": "node ./scripts/init-contracts.mjs",
+    "dev:web": "yarn workspace @sknk/web run dev",
+    "build:web": "yarn workspace @sknk/web run build",
+    "check:web": "yarn workspace @sknk/web run check",
+    "contracts:install": "node ./scripts/with-contracts.mjs -- forge soldeer install",
+    "contracts:test": "node ./scripts/with-contracts.mjs -- forge test --offline",
+    "contracts:fmt": "node ./scripts/with-contracts.mjs -- forge fmt --check",
+    "verify": "yarn contracts:fmt && yarn contracts:test && yarn check:web && yarn build:web"
+  }
+}
