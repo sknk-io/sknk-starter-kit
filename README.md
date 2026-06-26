@@ -1,6 +1,6 @@
 <p align="center">
   <img
-    src=".github/assets/sknk-logo.webp"
+    src=".github/assets/sknk-logo.svg"
     alt="sknk-logo"
     width="200"
   />
